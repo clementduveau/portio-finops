@@ -1,0 +1,58 @@
+{{/* Just modified a bit to work with render_image hook and output webp images */}}
+{{/* get file that matches the filename as specified as src=""  */}}
+{{ $src := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL))  }}
+{{ $alt := .PlainText | safeHTML }}
+
+{{/* So for posts that aren't setup in the page bundles, it doesn't fail  */}}
+{{ if $src }}
+
+
+{{ $xsmall := default "576x webp" }}
+{{ $small := default "768x webp" }}
+{{ $medium := default "992x webp" }}
+{{ $large := default "1200x webp" }}
+
+{{/* resize the src image to the given sizes */}}
+{{/* We create a a temp scratch because it's not available in this context */}}
+{{ $data := newScratch }}
+{{ $data.Set "xsmall" ($src.Resize $xsmall) }}
+{{ $data.Set "small" ($src.Resize $small) }}
+{{ $data.Set "medium" ($src.Resize $medium) }}
+{{ $data.Set "large" ($src.Resize $large) }}
+
+{{/* add the processed images to the scratch */}}
+
+{{ $tiny := $data.Get "xsmall" }}
+{{ $small := $data.Get "small" }}
+{{ $medium := $data.Get "medium" }}
+{{ $large := $data.Get "large" }}
+
+{{/* only use images smaller than or equal to the src (original) 
+image size, as Hugo will upscale small images */}}
+
+
+<picture>
+    
+    <source media="(max-width: 576px)" 
+        srcset="{{with $xsmall.RelPermalink }}{{.}}{{ end }}">
+
+    <source media="(max-width: 768px)" 
+        srcset="{{with $small.RelPermalink }}{{.}}{{ end }}">
+
+    <source media="(max-width: 992px)" 
+        srcset="{{with $medium.RelPermalink }}{{.}}{{ end }}">
+
+    <source media="(min-width: 1200px)" 
+        srcset="{{with $large.RelPermalink }}{{.}}{{ end }}">
+    
+    <img 
+ 
+   alt="{{ $alt }}" title="{{ $alt }}" src="{{ $src }}" 
+   height="{{ $src.Height}}" width="{{ $src.Width }}">
+
+</picture>
+  
+  {{/* Since I do image-response class, the only thing that really 
+  matters is the height and width matches the image aspect ratio */}}
+
+  {{ end }}
