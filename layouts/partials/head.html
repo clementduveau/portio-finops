@@ -1,31 +1,30 @@
 <head>
   <meta charset="utf-8" />
-  <title>{{ .Title }}</title>
 
   {{ "<!-- mobile responsive meta -->" | safeHTML }}
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
+  {{- if hugo.IsProduction | or (eq .Site.Params.env "production") }}
+  <meta name="robots" content="index, follow">
+  {{- else }}
+  <meta name="robots" content="noindex, nofollow">
+  {{- end }}
 
   {{ "<!-- Stylesheets -->" | safeHTML }}
   {{ $style := resources.Get "scss/style.scss" | resources.ToCSS | resources.PostCSS | minify }}
   <link href="{{ $style.Permalink }}" rel="stylesheet" />
 
-  <!-- Defered CSS -->
+  {{ "<!-- Deferred CSS -->" | safeHTML }}
   {{ "<!-- Slick Carousel -->" | safeHTML }}
   <link rel="preload" href="{{ "plugins/slick/slick.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="{{ "plugins/slick/slick.css" | absURL }}"></noscript>
-  
+
   <link rel="preload" href="{{ "plugins/slick/slick-theme.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="{{ "plugins/slick/slick-theme.css" | absURL }}"></noscript>
 
   {{ "<!-- Font Awesome -->" | safeHTML }}
   <link rel="preload" href="{{ "plugins/font-awesome/css/font-awesome.min.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="{{ "plugins/font-awesome/css/font-awesome.min.css" | absURL }}"></noscript>
-
-  {{ "<!-- Magnific Popup -->" | safeHTML }}
-  <link rel="preload" href="{{"plugins/magnafic-popup/magnific-popup.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="{{"plugins/magnafic-popup/magnific-popup.css" | absURL }}"></noscript>
 
 
   {{ "<!--Favicon-->" | safeHTML }}
@@ -43,4 +42,49 @@
     gtag('config', '{{ . }}');
   </script>
   {{ end }}
+
+  {{ "<!-- SEO -->" | safeHTML }}
+  <title itemprop="name">{{ .Title }} | {{ .Site.Title }}</title>
+  <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta itemprop="name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta name="application-name" content="{{ .Title }} | {{ .Site.Title }}" />
+  <meta property="og:site_name" content="{{ .Site.Params.Title }}" />
+
+  <meta name="description" content="{{ .Site.Params.Description }}" />
+  <meta itemprop="description" content="{{ .Site.Params.Description }}" />
+  <meta property="og:description" content="{{ .Site.Params.Description }}" />
+  <meta name="twitter:description" content="{{ .Site.Params.Description }}" />
+
+  <meta property="og:locale" content="{{ .Site.LanguageCode }}">
+  <meta name="language" content="{{ .Site.LanguageCode }}">
+
+
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Wedreadz, la communauté dédiée à la dreadlocks en Ile de France ",
+        "url": "https://www.wedreadz.fr/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://media-ghost.s3.fr-par.scw.cloud//2021/09/logo-wdz.png"
+        }
+    },
+    "url": "https://www.wedreadz.fr/",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://media-ghost.s3.fr-par.scw.cloud//2022/02/Homepage-WDZ--min.jpg",
+        "width": 1920,
+        "height": 1080
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.wedreadz.fr/"
+    },
+    "description": "Le premier service de recherche d&#x27;expert(e)s dreadlocks qualifié(e)s à Paris ! Le moyen le plus rapide aujourd&#x27;hui pour avoir accès aux savoir-faire locks."
+}
+    </script>
 </head>

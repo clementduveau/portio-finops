@@ -26,12 +26,6 @@
 		<div class="row">
 			<div class="col-12 text-center">
 				<h3 class="breadCrumb__title">{{ .Title }}</h3>
-				<nav aria-label="breadcrumb" class="d-flex justify-content-center">
-					<ol class="breadcrumb align-items-center">
-						<li class="breadcrumb-item"><a href="{{ .Site.BaseURL }}">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">{{ .Title }}</li>
-					</ol>
-				</nav>
 			</div>
 		</div>
 	</div>
@@ -43,15 +37,17 @@
 			{{ range .Paginator.Pages }}
 			<div class="col-lg-4">
 				<div class="blog-page__item">
+					<a class="text-dark" href="{{ .Permalink }}">
 					<div class="blog-page__item-thumb">
 						<img src="{{ .Params.featureImage | absURL }}" alt="post-image">
 					</div>
 					<div class="blog-page__item-content bg-white">
-						<span class="small">{{ .PublishDate.Format "January 2, 2006" }}</span>
+						<span class="small">{{ .PublishDate.Format "2/01/2006" }}</span>
 						<h5 class="mb-0">
-							<a class="text-dark" href="{{ .Permalink }}">{{ .Title }}</a>
+							{{ .Title }}
 						</h5>
 					</div>
+				</a>
 				</div>
 			</div>
 			{{ end }}

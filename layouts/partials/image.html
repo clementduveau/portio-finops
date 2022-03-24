@@ -1,6 +1,6 @@
 {{/* Just modified a bit to work with render_image hook and output webp images */}}
 {{/* get file that matches the filename as specified as src=""  */}}
-{{ $src := .Page.Resources.GetMatch (printf "%s" (.Destination | safeURL))  }}
+{{ $src := .Page.Resources.Get .image (printf "%s" (.src | safeURL))  }}
 {{ $alt := .PlainText | safeHTML }}
 
 {{/* So for posts that aren't setup in the page bundles, it doesn't fail  */}}

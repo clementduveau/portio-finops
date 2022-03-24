@@ -32,6 +32,7 @@
     }
     &__education{
         &_item{
+            text-align: center;
             background: $white;
             padding: 30px;
             border-radius: 20px;
@@ -41,6 +42,16 @@
                 display: block;
                 margin: 0 0 20px 30px;
                 position: relative;
+            }
+            ul{
+                text-align: left;
+            }
+            ul li{
+                list-style-image: url("/images/resume/checkbox-marked-circle-outline.svg");
+            }
+            a.btn{
+                color: $light;
+                background-color: $primary;
             }
         }
     }
