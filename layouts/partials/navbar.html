@@ -3,13 +3,12 @@
     <a href="{{ .Site.BaseURL }}" class="navbar-brand">
       <img src="{{ .Site.Params.logo | absURL }}" alt="site-logo">
     </a>
-    <button type="button" class="navbar-toggler collapsed" aria-label="Ouverture menu navigation" data-toggle="collapse" data-target="#navbarCollapse">
-      <span class="navbar-toggler-icon"></span>
-      <span class="navbar-toggler-icon"></span>
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <input type="checkbox" id="menuToggle">
+    <label for="menuToggle" class="menu-icon" aria-label="Ouverture menu navigation">
+      <i class="fa fa-duotone fa-bars"></i>
+    </label>
 
-    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+    <div class="navbar-collapse justify-content-between" id="navbarCollapse">
       <ul class="nav navbar-nav main-navigation my-0 mx-auto">
         {{ $menu := .Site.Menus.main }}
         {{ range $index, $element := $menu }}
