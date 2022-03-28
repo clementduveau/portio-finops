@@ -96,7 +96,7 @@
         "url": {{ .Site.BaseURL | safeHTML }},
         "logo": {
             "@type": "ImageObject",
-            "url": {{ print .Site.BaseURL "/images/site-navigation/logo.jpg" | safeHTML }}"
+            "url": {{ print .Site.BaseURL "images/site-navigation/logo.jpg" | safeHTML }}"
         }
     },
     "mainEntityOfPage": {
@@ -146,8 +146,8 @@
         "@type": "Article",
         "headline": {{ .Title }},
         "author": {
-        "@type": "Person",
-        "name": "{{ .Site.Params.Seo.author }}"
+            "@type": "Person",
+            "name": "{{ .Site.Params.Seo.author }}"
         },
         "datePublished": "{{ .Date.Format "2006-01-02" }}",
         "description": {{ .Description }},
@@ -155,16 +155,16 @@
         "mainEntityOfPage": "True",
         "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
         "image": {
-        "@type": "imageObject",
-        "url": "{{ with .Params.image }}{{ .Permalink }}{{ end }}"
+            "@type": "imageObject",
+            "url": "{{ with .Params.image }}{{ .Permalink }}{{ end }}"
         },
         "publisher": {
-        "@type": "Organization",
-        "name": "{{ .Site.Title }}",
-        "logo": {
-            "@type": "imageObject",
-            "url": {{ "images/favicon.png" | absURL | safeHTML }}
-        }
+            "@type": "Organization",
+            "name": "{{ .Site.Title }}",
+            "logo": {
+                "@type": "imageObject",
+                "url": {{ "images/favicon.png" | absURL | safeHTML }}
+            }
         }
     }
     </script>
