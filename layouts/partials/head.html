@@ -47,7 +47,7 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', '{{ . }}');
+        gtag('config', '{{ . }}', { 'storage': 'none' });
     </script>
     {{ end }}
 
