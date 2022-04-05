@@ -86,31 +86,53 @@
       <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
     {{ end }}
 
+
+    {{ if .IsHome -}}
     <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "publisher": {
-        "@type": "Organization",
-        "name": "{{ .Site.Title }}, {{ .Site.Params.Seo.description }}",
-        "url": {{ .Site.BaseURL | safeHTML }},
-        "logo": {
-            "@type": "ImageObject",
-            "url": {{ print .Site.BaseURL "images/site-navigation/logo.jpg" | safeHTML }}"
-        }
-    },
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": {{ .Site.BaseURL }}
-    },
-    "description": {{ .Site.Params.Seo.description }}
-}
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "{{ .Site.Title }}",
+        "url": {{ .Site.BaseURL }},
+        "description": "{{ .Site.Params.Seo.Description }}"
+    }
     </script>
-
-
+    {{ else if eq .Section "blog" }}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "name": {{ .Title | safeHTML }},
+        "description": "{{ if .Description }}{{ .Description }}{{ end }}",
+        "inLanguage": {{ .Site.LanguageCode | default "fr-fr" }},
+        "isFamilyFriendly": "true",
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ .Site.Title }}, {{ .Site.Params.Seo.description }}",
+            "url": {{ .Site.BaseURL | safeHTML }},
+            "logo": {
+                "@type": "ImageObject",
+                "url": {{ print .Site.BaseURL "/images/site-navigation/logo.jpg" | safeHTML }}
+            }
+        },
+        "dateCreated": "{{ .Date.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "datePublished": "{{ .Date.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+        "author" : {
+            "@type": "Person",
+            "name": "{{ .Site.Params.Seo.Author }}"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": {{ .Permalink }}
+        },
+        "url" : {{ .Permalink }},
+        "wordCount" : "{{ .WordCount }}"
+    }
+    </script>
+    {{ end }}
 
     {{ if eq .Section "blog" }} 
-
     <!-- Pagination meta tags for list pages only -->
     {{ $paginator := .Paginate (where .Pages "Section" "blog") }}
     {{ if $paginator }}
