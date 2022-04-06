@@ -13,25 +13,15 @@
     {{- end }}
 
     {{ "<!-- Stylesheets -->" | safeHTML }}
-    {{ $style := resources.Get "scss/style.scss" | resources.ToCSS | minify }}
+    {{ $style := resources.Get "scss/style.scss" | resources.ToCSS | postCSS | minify }}
     <link href="{{ $style.Permalink }}" rel="stylesheet" />
 
     {{ "<!-- Deferred CSS -->" | safeHTML }}
-    {{ "<!-- Slick Carousel -->" | safeHTML }}
-    <link rel="preload" href="{{ "plugins/slick/slick.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ "plugins/slick/slick.css" | absURL }}">
-    </noscript>
-
-    <link rel="preload" href="{{ "plugins/slick/slick-theme.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="{{ "plugins/slick/slick-theme.css" | absURL }}">
-    </noscript>
-
     {{ "<!-- Font Awesome -->" | safeHTML }}
-    <link rel="preload" href="{{ "plugins/font-awesome/css/font-awesome.min.css" | absURL }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    {{ $iconStyle := resources.Get "plugins/font-awesome/css/font-awesome.min.css" | postCSS | minify }}
+    <link rel="preload" href="{{ $iconStyle.Permalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="{{ "plugins/font-awesome/css/font-awesome.min.css" | absURL }}">
+        <link rel="stylesheet" href="{{ $iconStyle.Permalink }}">
     </noscript>
 
 
