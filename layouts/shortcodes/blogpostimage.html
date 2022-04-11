@@ -1,0 +1,7 @@
+{{ $image = .Resources.GetMatch (.Get "src") }}
+
+{{ $image := $image.Resize "970x" }}
+{{ $image.Crop "970x500 Center" }}
+
+{{ $image.RelPermalink }}
+<a>Test</a>
