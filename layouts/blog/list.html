@@ -39,7 +39,9 @@
 				<div class="blog-page__item">
 					<a class="text-dark" href="{{ .Permalink }}">
 					<div class="blog-page__item-thumb">
-						<img src="{{ .Params.featureImage | absURL }}" alt="post-image">
+						{{ $image := .Resources.GetMatch .Params.postImage }}
+						{{ $image := $image.Fill "970x500 smart" }}
+						<img src={{ $image.RelPermalink | absURL }} alt="post-image">
 					</div>
 					<div class="blog-page__item-content bg-white">
 						<span class="small">{{ .PublishDate.Format "2/01/2006" }}</span>
