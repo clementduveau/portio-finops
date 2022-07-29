@@ -2,7 +2,7 @@
 {{ if .enable }}
 <section class="section blog-preview" id="blog">
 	<div class="blog-preview__shape">
-		<img src="images/blog/blog-shape.svg" alt="blog shape" />
+		<img loading="lazy" src="images/blog/blog-shape.svg" alt="blog shape" />
 	</div>
 	<div class="container">
 		<div class="row mb-5">
@@ -28,7 +28,7 @@
 						<div class="blog-preview__item-thumb">
 							{{ $image := .Resources.GetMatch .Params.postImage }}
 							{{ $image := $image.Fill "315x365 smart" }}
-							<img src="{{ $image.RelPermalink | absURL }}" alt="post-image">
+							<img loading="lazy" src="{{ $image.RelPermalink | absURL }}" alt="post-image">
 						</div>
 						<div class="blog-preview__item-content bg-white">
 							<span class="small">{{ .PublishDate.Format "2/01/2006" }}</span>
