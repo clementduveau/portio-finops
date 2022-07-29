@@ -45,10 +45,7 @@ image size, as Hugo will upscale small images */}}
     <source media="(min-width: 1200px)" 
         srcset="{{with $large.RelPermalink }}{{.}}{{ end }}">
     
-    <img 
- 
-   alt="{{ $alt }}" title="{{ $alt }}" src="{{ $src }}" 
-   height="{{ $src.Height}}" width="{{ $src.Width }}">
+    <img loading="lazy" alt="{{ $alt }}" title="{{ $alt }}" src="{{ $src }}" height="{{ $src.Height}}" width="{{ $src.Width }}">
 
 </picture>
   
